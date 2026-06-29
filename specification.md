@@ -1,27 +1,29 @@
-# Specification: [Your App Idea Name]
+# Specification: [Save a Life ]
 
-App description: [Write a one or two sentences describing what your app does and who it’s for.]
+I want my app to similar to Life360 but everything is for free and i want my app to be more strict on users who have the app downloaded 
 
 ## Style and Theme
 
-[Describe the look and feel of your app.] 
+I want the style to be Gaming and the Theme to be Anime 
 
 Overall mood:
-Examples: fun and playful, calm and professional, bold and energetic, etc.
+Bold,serious,colorful 
 
 Use the *style-guide.html* for details on styling -- fonts, colors, and layout.
 
 ## User Scenarios
 
 ### Story 1 (most important)
-
-[Write 1-2 sentences. Who is using the app, what do they want to do, and what do they see when it works? Write it like you are describing it to a friend.]
-
+A young Lady would love to be able to track her children but her children's cellular device does not have cellular service and she tried using life360 but it didnt continue to track the cell phone outside of Wifi and she discovers my app and was able to continue to track her children outside of cellular service and make sure they were safe.
 ---
 
 ## Requirements
 
-Write clear statements about what the app must do.
+Tracks and Pin point Users location outside of cellular device 
+Gives user data summarization everyweek 
+
+
+
 
 ### Functional Requirements
 
