@@ -36,7 +36,7 @@ const app = Vue.createApp({
       error: '',
     });
 
-    fetch('items-template.csv')
+    fetch('items.csv')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Could not load CSV data file.');
@@ -52,14 +52,31 @@ const app = Vue.createApp({
               itemsStore.error = 'There was a problem reading the CSV data.';
               itemsStore.items = [];
             } else {
-              itemsStore.items = data.map((row) => ({
-                id: String(row.id || '').trim(),
-                name: String(row.name || '').trim(),
-                description: String(row.description || '').trim(),
-                category: String(row.category || '').trim(),
-                imageUrl: String(row.image_url || '').trim(),
-                location: String(row.location || '').trim(),
-              }));
+              const getField = (row, ...keys) => {
+                for (const k of keys) {
+                  if (Object.prototype.hasOwnProperty.call(row, k) && row[k] != null) {
+                    return String(row[k]).trim();
+                  }
+                }
+                return '';
+              };
+
+              itemsStore.items = data.map((row, index) => {
+                const rawImage = getField(row, 'image_url', 'image', 'image_url ', 'Image', 'IMAGE_URL');
+                // normalize backslashes to forward slashes and trim commas/quotes
+                let imageUrl = rawImage.replace(/\\+/g, '/').replace(/^,+|,+$/g, '').replace(/^"|"$/g, '').trim();
+                // if image path uses a leading folder name with uppercase Assets, normalize to lowercase assets
+                imageUrl = imageUrl.replace(/^Assets\//i, 'assets/');
+
+                return {
+                  id: String(getField(row, 'id', 'ID', 'Id') || index + 1).trim(),
+                  name: String(getField(row, 'name', 'Name') || '').trim(),
+                  description: String(getField(row, 'description', ' DESCRIPITION ', 'Description') || '').trim(),
+                  category: String(getField(row, 'category', 'Category') || '').trim(),
+                  imageUrl: imageUrl || '',
+                  location: String(getField(row, 'location', 'Location') || '').trim(),
+                };
+              });
               itemsStore.error = '';
             }
             itemsStore.isLoading = false;
